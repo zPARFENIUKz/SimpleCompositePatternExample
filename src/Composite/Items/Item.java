@@ -21,10 +21,15 @@ public abstract class Item implements HasPrice {
 
     @Override
     public double getPrice() {
-        return 0;
+        return price;
     }
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Item info: \"%s\" Item price \"%.2f$\"", info, price);
     }
 }

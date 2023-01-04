@@ -58,6 +58,15 @@ public abstract class AbstractContainer implements HasPrice {
         return Collections.unmodifiableList(components);
     }
 
+    public List<Item> getItems() {
+        List<Item> items = new ArrayList<>(components.stream().filter(component -> component instanceof Item)
+                .map(component -> (Item) component).toList());
+        components.stream().filter(component -> component instanceof AbstractContainer)
+                .map(component -> (AbstractContainer) component)
+                .forEach(container -> items.addAll(container.getItems()));
+        return Collections.unmodifiableList(items);
+    }
+
     @Override
     public double getPrice() {
         if (components.isEmpty()) return 0;
